@@ -69,8 +69,10 @@ public class UserService {
         if (userFromDb.isEmpty() || wrongPassword(userFromDb, user)) {
             result = ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
-        return ResponseEntity.ok().build();
+        else {
+            result = ResponseEntity.ok().build();
+        }
+        return result;
     }
 
         /*
