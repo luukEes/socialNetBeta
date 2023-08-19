@@ -1,0 +1,60 @@
+*{
+    margin: 0;
+    padding: 5px;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.Login  {
+      /*
+    here css for login 
+    */
+    padding: 70px 0;
+    margin: auto;
+}
+
+.LoginHeader{
+      /*
+    here css for Login text
+    */
+    font-size: 50px;
+    margin: 0 auto;
+    max-width: 320px;
+}
+.Login form{
+    /*
+    here css for input form
+    */
+    width: 420px;
+    background: transparent;
+    border: 3px solid rgba(209, 52, 5, 0.555);
+    backdrop-filter: blur(20px);
+    color: #0c0c0c;
+    border-radius: 10px;
+    padding: 30px 40px;
+}
+
+.Login button {
+    /*
+    here css for button
+    */
+    width: 320px;
+    margin: auto;
+    border: 3px solid rgb(233, 5, 5);
+    padding: 10px;
+}
+
+.Form {
+    color: aqua;
+    font-size: 300px;
+}
+
