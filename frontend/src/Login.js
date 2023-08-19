@@ -65,9 +65,7 @@ class Login extends Component {
                             <Form.Control type="password" name="password" />
                         </Form.Group>
 
-                        <Button block size="lg" type="submit">Login
-            </Button>
-
+                        <Button block size="lg" type="submit">Login</Button>
                     </Form>
 
                 </div>
