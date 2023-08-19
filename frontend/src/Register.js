@@ -67,7 +67,7 @@ class Register extends Component {
             <Form.Control type = "password" name = "password"/>
             </Form.Group>
 
-            <Button block size = "lg" type = "submit">
+            <Button block size = "lg" type = "submit" >
             Register
             </Button>
 

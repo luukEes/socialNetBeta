@@ -26,29 +26,6 @@
     </div>
     
     <script type="text/babel">
-      const { useState } = React;
-      function App() {
-          const [inputValue, setInputValue] = useState('');
-
-          const handleInputChange = (event) => {
-              setInputValue(event.target.value);
-          };
-
-          const handleSubmit = () => {
-              // Handle form submission here
-          };
-          return (
-              <div className='container'>
-                  <h3>React js Disable Button if input field is empty</h3>
-                  <input type="text" value={inputValue} onChange={handleInputChange} />
-                  <button disabled={!inputValue} onClick={handleSubmit}>
-                      Submit
-                  </button>
-              </div>
-          );
-      }
-
-      ReactDOM.render(<App />, document.getElementById("app"));
   </script>
   </body>
 </html>
