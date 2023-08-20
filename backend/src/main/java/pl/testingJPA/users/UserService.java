@@ -88,7 +88,7 @@ j
     }
 
         /*
-    method searching users id DB by ID
+     @GetMapping("/usersById") - methods searching user in DB by ID
      */
 
     @GetMapping("/usersById")
