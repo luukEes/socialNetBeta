@@ -23,7 +23,12 @@ Methods provide basic data operations. Each method has exception handling. Basic
  
 - @GetMapping("/usersById") - methods searching user in DataBase by ID ,
  
-- @DeleteMapping("/deleteUserByID") - method deletes users from DataBase by ID.
+- @DeleteMapping("/deleteUserByID") - method deletes users from DataBase by ID,
+ 
+- @GetMapping("/findPostById") -method  search post from db by ID,
+
+- @DeleteMapping("/deletePostById") - method delete single post by id
+
 
 The application is constantly being developed, new functionalities will be added over time.
 />
