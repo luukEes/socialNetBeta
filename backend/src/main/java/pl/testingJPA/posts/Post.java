@@ -4,12 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 import pl.testingJPA.users.User;
 
-
-
 @Entity
 @Table(name = "posts")
 @RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString

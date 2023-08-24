@@ -1,16 +1,16 @@
 package pl.testingJPA.posts;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 import pl.testingJPA.users.User;
 import pl.testingJPA.users.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -33,5 +33,31 @@ public class PostService {
         Post savedPost = postRepository.save(post);
 
         return ResponseEntity.ok(savedPost);
+    }
+
+    //method  search post from db by ID
+
+    @GetMapping("/findPostById")
+    @Transactional
+    public ResponseEntity findPost(@RequestHeader("id") int id)  {
+        Optional<Post> postFromDb = postRepository.findById(id);
+        ResponseEntity response = null;
+
+        if (postFromDb.isEmpty()) {
+            response= ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        else {
+            response = ResponseEntity.ok(postFromDb);
+        }
+        return  response;
+    }
+
+    // delete single post by id
+
+    @DeleteMapping("/deletePostById")
+    @Transactional
+    public ResponseEntity deletePost(@RequestBody Post post) throws JsonProcessingException {
+        List<Post> postById = postRepository.deleteById(post.getId());
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
