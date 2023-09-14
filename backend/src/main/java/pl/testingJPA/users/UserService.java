@@ -2,6 +2,7 @@ package pl.testingJPA.users;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class UserService {
     Optional method checking if user is allready added to db ->> true ->> return 422 Unprocessable Content
     otherwise return 200 .ok
      */
-    @PostMapping("/users")
+    @PostMapping("/addusers")
     public ResponseEntity addUser(@RequestBody User user) {
         Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
 
@@ -83,16 +84,13 @@ j
         return !userFromDb.get().getPassword().equals(user.getPassword());
     }
 
-    private boolean correctPassword(Optional<User> userFromDb, User user) {
-        return userFromDb.get().getPassword().equals(user.getPassword());
-    }
-
         /*
      @GetMapping("/usersById") - methods searching user in DB by ID
      */
 
     @GetMapping("/usersById")
     public ResponseEntity getUsersById(@RequestBody User user) throws JsonProcessingException {
+
         List<User> usersById = userRepository.findById(user.getId());
         ResponseEntity results = null;
         if (usersById.isEmpty()){
@@ -116,4 +114,38 @@ j
         List<User> usersById = userRepository.deleteById(user.getId());
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    /*
+    write function to changing password for existing user
+     */
+
+    @PostMapping("/changePassword")
+    @Transactional
+     public ResponseEntity changePassword(@RequestBody User user) {
+
+        Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
+
+        ResponseEntity result = null;
+
+        if (userFromDb.isEmpty() || wrongPassword(userFromDb, user)) {
+            result = ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        else  {
+            result = ResponseEntity.ok().build();
+        }
+
+        return result;
+    }
+
+    private boolean correctPassword(Optional<User> userFromDb, User user) {
+        return userFromDb.get().getPassword().equals(user.getPassword());
+    }
+
+    private String newPasswordMethod(User user) {
+        String actualPassword = user.getPassword();
+        String changedPassword = user.getNewpassword();
+        return actualPassword = changedPassword;
+    }
+
+
 }
