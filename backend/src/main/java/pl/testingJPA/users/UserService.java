@@ -2,7 +2,6 @@ package pl.testingJPA.users;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +28,7 @@ public class UserService {
      */
     @GetMapping("/users")
     public ResponseEntity getUsers() throws JsonProcessingException {
+
         List<User> users = userRepository.findAll();
 
         return ResponseEntity.ok(objectMapper.writeValueAsString(users));
@@ -36,14 +36,15 @@ public class UserService {
 
     /*
     method addUser add user to Db
-    Optional method checking if user is allready added to db ->> true ->> return 422 Unprocessable Content
+    Optional method checking if user is already added to db ->> true ->> return 422 Unprocessable Content
     otherwise return 200 .ok
      */
     @PostMapping("/addusers")
     public ResponseEntity addUser(@RequestBody User user) {
+
         Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
 
-        ResponseEntity<Object> result = null;
+        ResponseEntity<Object> result;
 
         if (userFromDb.isPresent()) {
             result = ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
@@ -64,7 +65,9 @@ j
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody User user) {
-        ResponseEntity result = null;
+
+        ResponseEntity result;
+
         Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
 
         if (userFromDb.isEmpty() || wrongPassword(userFromDb, user)) {
@@ -81,6 +84,7 @@ j
      */
 
     private boolean wrongPassword(Optional<User> userFromDb, User user) {
+
         return !userFromDb.get().getPassword().equals(user.getPassword());
     }
 
@@ -92,7 +96,9 @@ j
     public ResponseEntity getUsersById(@RequestBody User user) throws JsonProcessingException {
 
         List<User> usersById = userRepository.findById(user.getId());
-        ResponseEntity results = null;
+
+        ResponseEntity results;
+
         if (usersById.isEmpty()){
             results = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
@@ -111,7 +117,9 @@ j
     @DeleteMapping("/deleteUserByID")
     @Transactional
     public ResponseEntity deleteById(@RequestBody User user) throws JsonProcessingException {
+
         List<User> usersById = userRepository.deleteById(user.getId());
+
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -125,21 +133,19 @@ j
 
         Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
 
-        ResponseEntity result = null;
+        ResponseEntity result;
 
         if (userFromDb.isEmpty() || wrongPassword(userFromDb, user)) {
             result = ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        else  {
-            result = ResponseEntity.ok().build();
-        }
-
-        return result;
+        else
     }
 
-    private boolean correctPassword(Optional<User> userFromDb, User user) {
-        return userFromDb.get().getPassword().equals(user.getPassword());
-    }
+    /*
+
+    method creates new filed in DB
+    new to update existing one
+     */
 
     private String newPasswordMethod(User user) {
         String actualPassword = user.getPassword();
