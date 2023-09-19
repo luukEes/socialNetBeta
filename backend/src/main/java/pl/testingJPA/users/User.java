@@ -19,11 +19,14 @@ public class User {
     private int id;
 
     @NonNull
+    @Column(name = "username")
     private String username;
 
     @NonNull
+    @Column(name = "password")
     private String password;
 
     @NonNull
+    @Column(name = "newpassword")
     private  String newpassword;
 }

@@ -48,11 +48,10 @@ public class UserService {
 
         if (userFromDb.isPresent()) {
             result = ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
-        }
-        else {
+        } else {
 
             User savedUser = userRepository.save(user);
-            result =  ResponseEntity.ok(savedUser);
+            result = ResponseEntity.ok(savedUser);
         }
 
         return result;
@@ -72,8 +71,7 @@ j
 
         if (userFromDb.isEmpty() || wrongPassword(userFromDb, user)) {
             result = ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        else {
+        } else {
             result = ResponseEntity.ok().build();
         }
         return result;
@@ -93,18 +91,19 @@ j
      */
 
     @GetMapping("/usersById")
-    public ResponseEntity getUsersById(@RequestBody User user) throws JsonProcessingException {
+    public ResponseEntity getUsersById(@RequestBody User user) throws ResourceNotFoundException, JsonProcessingException {
 
         List<User> usersById = userRepository.findById(user.getId());
 
         ResponseEntity results;
 
-        if (usersById.isEmpty()){
-            results = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
+        if (usersById.isEmpty()) {
 
+            results = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
         else {
             results = ResponseEntity.ok(objectMapper.writeValueAsString(usersById));
+
         }
 
         return results;
@@ -124,34 +123,27 @@ j
     }
 
     /*
-    write function to changing password for existing user
+    write function to updated data for existing user
      */
 
-    @PostMapping("/changePassword")
-    @Transactional
-     public ResponseEntity changePassword(@RequestBody User user) {
+    @PutMapping("/updateData")
+    public ResponseEntity<User> updateData(@RequestBody User user) throws ResourceNotFoundException {
 
-        Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
 
-        ResponseEntity result;
+        List<User> updatedUser = userRepository.findById(user.getId());
 
-        if (userFromDb.isEmpty() || wrongPassword(userFromDb, user)) {
-            result = ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        else
+        ResponseEntity  result;
+
+        updatedUser.setUsername(user.getUsername());
+        updatedUser.setPassword(user.getPassword());
+        updatedUser.setNewpassword(user.getNewpassword());
+
+        userRepository.save(updatedUser);
+
+        return  ResponseEntity.ok(updatedUser);
+
+        /*
+        smth is wrong :(
+         */
     }
-
-    /*
-
-    method creates new filed in DB
-    new to update existing one
-     */
-
-    private String newPasswordMethod(User user) {
-        String actualPassword = user.getPassword();
-        String changedPassword = user.getNewpassword();
-        return actualPassword = changedPassword;
-    }
-
-
 }
