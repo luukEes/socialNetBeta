@@ -127,10 +127,14 @@ j
      */
 
     @PutMapping("/updateData")
+
     public ResponseEntity<User> updateData(@RequestBody User user) throws ResourceNotFoundException {
 
 
         List<User> updatedUser = userRepository.findById(user.getId());
+        /*
+        change looking for ID to usernam and password ???
+         */
 
         ResponseEntity  result;
 
@@ -141,9 +145,6 @@ j
         userRepository.save(updatedUser);
 
         return  ResponseEntity.ok(updatedUser);
-
-        /*
-        smth is wrong :(
-         */
+        
     }
 }
