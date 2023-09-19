@@ -93,7 +93,7 @@ j
     @GetMapping("/usersById")
     public ResponseEntity getUsersById(@RequestBody User user) throws ResourceNotFoundException, JsonProcessingException {
 
-        List<User> usersById = userRepository.findById(user.getId());
+       List<User> usersById = userRepository.findById(user.getId());
 
         ResponseEntity results;
 
