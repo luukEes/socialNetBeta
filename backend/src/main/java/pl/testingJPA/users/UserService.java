@@ -157,6 +157,7 @@ j
     /*
     working properly. Data saved in DB
     but need to take care of -> jakarta.persistence.EntityNotFoundException: Unable to find pl.testingJPA.users.User with id 3
+    Method creates al; new data in db, by id user
      */
 
 }
