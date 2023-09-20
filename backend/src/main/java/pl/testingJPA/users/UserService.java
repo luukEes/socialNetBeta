@@ -140,7 +140,7 @@ j
 
         ResponseEntity results;
 
-        if (updatedUsers.) {
+        if (updatedUsers == null) {
 
             results = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
