@@ -2,6 +2,7 @@ package pl.testingJPA.users;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,9 @@ public class UserService {
         ResponseEntity<Object> result;
 
         if (userFromDb.isPresent()) {
+
             result = ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+
         } else {
 
             User savedUser = userRepository.save(user);
@@ -70,8 +73,11 @@ j
         Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
 
         if (userFromDb.isEmpty() || wrongPassword(userFromDb, user)) {
+
             result = ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
         } else {
+
             result = ResponseEntity.ok().build();
         }
         return result;
@@ -93,7 +99,7 @@ j
     @GetMapping("/usersById")
     public ResponseEntity getUsersById(@RequestBody User user) throws ResourceNotFoundException, JsonProcessingException {
 
-       List<User> usersById = userRepository.findById(user.getId());
+       Optional<User> usersById = userRepository.findById(user.getId());
 
         ResponseEntity results;
 
@@ -128,23 +134,30 @@ j
 
     @PutMapping("/updateData")
 
-    public ResponseEntity<User> updateData(@RequestBody User user) throws ResourceNotFoundException {
+    public ResponseEntity<User> updateData(@RequestBody User user) {
 
+        User updatedUsers = userRepository.getReferenceById((long) user.getId());
 
-        List<User> updatedUser = userRepository.findById(user.getId());
-        /*
-        change looking for ID to usernam and password ???
-         */
+        ResponseEntity results;
 
-        ResponseEntity  result;
+        if (updatedUsers.) {
 
-        updatedUser.setUsername(user.getUsername());
-        updatedUser.setPassword(user.getPassword());
-        updatedUser.setNewpassword(user.getNewpassword());
+            results = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        else {
+            updatedUsers.setUsername(user.getUsername());
+            updatedUsers.setPassword(user.getPassword());
+            updatedUsers.setNewpassword(user.getNewpassword());
 
-        userRepository.save(updatedUser);
-
-        return  ResponseEntity.ok(updatedUser);
-        
+            User userNewData = userRepository.save(user);
+            results=  ResponseEntity.ok(userNewData);
+        }
+        return results;
     }
+    /*
+    working properly. Data saved in DB
+    but need to take care of -> jakarta.persistence.EntityNotFoundException: Unable to find pl.testingJPA.users.User with id 3
+     */
+
 }
+
