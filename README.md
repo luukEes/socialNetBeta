@@ -14,6 +14,8 @@ The logic is built on the functionality of the JPARepository interface.
  
 Data exchange is supported by implementing a MySQL database. Using MVN repository - mysql-connector.
 
+Basic methods :
+
 Methods provide basic data operations. Each method has exception handling. Basic methods in the application:
 - @GetMapping("/users") - method getUsers return all users saved in DataBase,
   
