@@ -134,30 +134,26 @@ j
 
     @PutMapping("/updateData")
 
-    public ResponseEntity<User> updateData(@RequestBody User user) {
+    public ResponseEntity<User> updateData(@RequestBody User user) throws ResourceNotFoundException {
 
-        User updatedUsers = userRepository.getReferenceById((long) user.getId());
+                User updatedUsers = userRepository.findById(user.getId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id: " + user.getId()));
 
         ResponseEntity results;
 
-        if (updatedUsers == null) {
-
-            results = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        else {
             updatedUsers.setUsername(user.getUsername());
             updatedUsers.setPassword(user.getPassword());
             updatedUsers.setNewpassword(user.getNewpassword());
 
             User userNewData = userRepository.save(user);
-            results=  ResponseEntity.ok(userNewData);
-        }
+            results =  ResponseEntity.ok(userNewData);
+
         return results;
     }
     /*
     working properly. Data saved in DB
-    but need to take care of -> jakarta.persistence.EntityNotFoundException: Unable to find pl.testingJPA.users.User with id 3
-    Method creates al; new data in db, by id user
+    Method creates al; new data in db, by user id- Admin tools
+    OK
      */
 
 }
