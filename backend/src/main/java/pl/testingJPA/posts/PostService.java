@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import pl.testingJPA.users.ResourceNotFoundException;
 import pl.testingJPA.users.User;
 import pl.testingJPA.users.UserRepository;
 
@@ -60,4 +61,28 @@ public class PostService {
         List<Post> postById = postRepository.deleteById(post.getId());
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    /*
+    create method to edit existing posts
+     */
+    @PutMapping("/editPost")
+    public ResponseEntity editPost(@RequestBody Post post) {
+
+        Post updatePost = postRepository.findById(post.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Post does not exist with id: " + post.getId()));
+
+        ResponseEntity results;
+
+        updatePost.setBody(post.getBody());
+
+        Post userNewData = postRepository.save(post);
+        results =  ResponseEntity.ok(userNewData);
+
+        return results;
+    }
+    /*
+    body of post added correcctly
+    user_id changed to null even if we type this field
+    need to check method above for crated new post
+     */
 }

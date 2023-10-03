@@ -141,7 +141,6 @@ j
 
         ResponseEntity results;
 
-            updatedUsers.setUsername(user.getUsername());
             updatedUsers.setPassword(user.getPassword());
             updatedUsers.setNewpassword(user.getNewpassword());
 
@@ -152,9 +151,10 @@ j
     }
     /*
     working properly. Data saved in DB
-    Method creates al; new data in db, by user id- Admin tools
+    Method creates all new data in db, by user id- Admin tools
     OK
      */
+    
 
 }
 
