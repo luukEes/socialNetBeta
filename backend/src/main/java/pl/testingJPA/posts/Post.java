@@ -25,4 +25,7 @@ public class Post {
     @NonNull
     private String body;
 
+    @NonNull
+    private String comments;
+
 }

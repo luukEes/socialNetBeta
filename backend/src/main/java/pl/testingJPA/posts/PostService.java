@@ -82,7 +82,14 @@ public class PostService {
     }
     /*
     body of post added correcctly
-    user_id changed to null even if we type this field
-    need to check method above for crated new post
      */
+
+    /*
+    create method and field  for comments
+     */
+
+
+
 }
+
+
