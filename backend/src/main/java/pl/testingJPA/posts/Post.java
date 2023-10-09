@@ -4,14 +4,16 @@ import jakarta.persistence.*;
 import lombok.*;
 import pl.testingJPA.users.User;
 
+import java.util.Optional;
+
 @Entity
 @Table(name = "posts")
 @RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class Post {
 
     @Id
@@ -28,4 +30,12 @@ public class Post {
     @NonNull
     private String comments;
 
+    /*
+    added some constructor because of loombook ?
+
+     */
+
+    public Post(Optional<User> userFromDb, String postBody) {
+
+    }
 }

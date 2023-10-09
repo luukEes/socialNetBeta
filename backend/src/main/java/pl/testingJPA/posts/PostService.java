@@ -2,6 +2,7 @@ package pl.testingJPA.posts;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.mysql.cj.protocol.a.NativeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +25,15 @@ public class PostService {
 
     @PostMapping("/posts")
     public ResponseEntity addPost(@RequestHeader("username") String username, @RequestBody String postBody) {
+
         Optional<User> userFromDb = userRepository.findByUsername(username);
 
         if (userFromDb.isEmpty()) {
+
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        Post post = new Post(userFromDb.get(), postBody);
+        Post post = new Post(userFromDb,postBody);
         Post savedPost = postRepository.save(post);
 
         return ResponseEntity.ok(savedPost);
@@ -41,15 +44,20 @@ public class PostService {
     @GetMapping("/findPostById")
     @Transactional
     public ResponseEntity findPost(@RequestHeader("id") int id)  {
+
         Optional<Post> postFromDb = postRepository.findById(id);
+
         ResponseEntity response = null;
 
         if (postFromDb.isEmpty()) {
+
             response= ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         else {
+
             response = ResponseEntity.ok(postFromDb);
         }
+
         return  response;
     }
 
@@ -58,7 +66,9 @@ public class PostService {
     @DeleteMapping("/deletePostById")
     @Transactional
     public ResponseEntity deletePost(@RequestBody Post post) throws JsonProcessingException {
+
         List<Post> postById = postRepository.deleteById(post.getId());
+
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -81,14 +91,35 @@ public class PostService {
         return results;
     }
     /*
-    body of post added correcctly
+    body of post added correctly
      */
 
     /*
-    create method and field  for comments
+    create method to add comment in direct user post
      */
 
 
+    @PutMapping("/addComment")
+    public ResponseEntity addComment(@RequestHeader("id") int id, @RequestBody String comments) {
+
+        Optional<Post> newComment = postRepository.findById(id);
+
+        ResponseEntity response = null;
+
+        if (newComment.isEmpty()) {
+
+            response= ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        else {
+
+            response = ResponseEntity.ok(newComment);
+        }
+        return  response;
+    }
+
+    /*
+    need to add save 
+     */
 
 }
 
