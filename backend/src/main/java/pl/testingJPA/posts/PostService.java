@@ -65,7 +65,7 @@ public class PostService {
 
     @DeleteMapping("/deletePostById")
     @Transactional
-    public ResponseEntity deletePost(@RequestBody Post post) throws JsonProcessingException {
+    public ResponseEntity deletePost(@RequestBody Post post) throws ResourceNotFoundException  {
 
         List<Post> postById = postRepository.deleteById(post.getId());
 
@@ -99,7 +99,7 @@ public class PostService {
      */
 
 
-    @PutMapping("/addComment")
+/*    @PutMapping("/addComment")
     public ResponseEntity addComment(@RequestHeader("id") int id, @RequestBody String comments) {
 
         Optional<Post> newComment = postRepository.findById(id);
@@ -112,13 +112,31 @@ public class PostService {
         }
         else {
 
+
             response = ResponseEntity.ok(newComment);
         }
         return  response;
+    }*/
+
+
+    @PutMapping("/addComment")
+
+    public Post newComments (@RequestHeader("id") int id, @RequestBody String comments) {
+
+        Post actualPost = postRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found with ID: " + id ));
+
+        actualPost.setComments(comments);
+
+        Post updatedPost = postRepository.save(actualPost);
+
+        return updatedPost;
     }
 
     /*
-    need to add save 
+
+    method add comment correctly
+
      */
 
 }
