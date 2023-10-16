@@ -94,31 +94,6 @@ public class PostService {
     body of post added correctly
      */
 
-    /*
-    create method to add comment in direct user post
-     */
-
-
-/*    @PutMapping("/addComment")
-    public ResponseEntity addComment(@RequestHeader("id") int id, @RequestBody String comments) {
-
-        Optional<Post> newComment = postRepository.findById(id);
-
-        ResponseEntity response = null;
-
-        if (newComment.isEmpty()) {
-
-            response= ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        else {
-
-
-            response = ResponseEntity.ok(newComment);
-        }
-        return  response;
-    }*/
-
-
     @PutMapping("/addComment")
 
     public Post newComments (@RequestHeader("id") int id, @RequestBody String comments) {
