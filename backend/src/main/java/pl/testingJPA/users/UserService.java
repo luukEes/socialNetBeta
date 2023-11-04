@@ -37,7 +37,7 @@ public class UserService {
 
     /*
     method addUser add user to Db
-    Optional method checking if user is already added to db ->> true ->> return 422 Unprocessable Content
+    Optional method checking if user is already added to db -> true -> return 422 Unprocessable Content
     otherwise return 200 .ok
      */
     @PostMapping("/addusers")

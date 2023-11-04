@@ -2,9 +2,12 @@ package pl.testingJPA.posts;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenerationTime;
 import pl.testingJPA.users.User;
 
 import java.util.Optional;
+
+import static org.hibernate.annotations.GenerationTime.*;
 
 @Entity
 @Table(name = "posts")
@@ -29,6 +32,9 @@ public class Post {
 
     @NonNull
     private String comments;
+
+    @Column(name = "comments_id")
+    private Long commentsId;
 
     /*
     added some constructor because of loombook ?

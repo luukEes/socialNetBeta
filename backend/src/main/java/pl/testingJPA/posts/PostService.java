@@ -3,6 +3,7 @@ package pl.testingJPA.posts;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mysql.cj.protocol.a.NativeUtils;
+import org.hibernate.annotations.Comments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -94,6 +95,19 @@ public class PostService {
     body of post added correctly
      */
 
+    /*
+    method for increment field comments_id in MySql
+    */
+    @Transactional
+    public Long incrementCommentsId() {
+
+        postRepository.incrementCommentsId();
+
+        Long updatedCommentsId = postRepository.getMaxCommentsId();
+
+        return updatedCommentsId;
+    }
+
     @PutMapping("/addComment")
 
     public Post newComments (@RequestHeader("id") int id, @RequestBody String comments) {
@@ -101,18 +115,19 @@ public class PostService {
         Post actualPost = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found with ID: " + id ));
 
-        actualPost.setComments(comments);
+                actualPost.setComments(comments);
+
+        Long updatedCommentsId = incrementCommentsId();
 
         Post updatedPost = postRepository.save(actualPost);
 
-        return updatedPost;
+        return updatedPost ;
     }
 
     /*
-
     method add comment correctly
-
      */
+
 
 }
 
