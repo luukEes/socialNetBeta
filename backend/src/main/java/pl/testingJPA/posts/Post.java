@@ -7,7 +7,6 @@ import pl.testingJPA.users.User;
 
 import java.util.Optional;
 
-import static org.hibernate.annotations.GenerationTime.*;
 
 @Entity
 @Table(name = "posts")

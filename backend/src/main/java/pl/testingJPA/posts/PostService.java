@@ -101,8 +101,6 @@ public class PostService {
     @Transactional
     public Long incrementCommentsId() {
 
-        postRepository.incrementCommentsId();
-
         Long updatedCommentsId = postRepository.getMaxCommentsId();
 
         return updatedCommentsId;
@@ -116,6 +114,8 @@ public class PostService {
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found with ID: " + id ));
 
                 actualPost.setComments(comments);
+
+
 
         Long updatedCommentsId = incrementCommentsId();
 
