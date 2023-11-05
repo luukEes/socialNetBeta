@@ -99,9 +99,9 @@ public class PostService {
     method for increment field comments_id in MySql
     */
     @Transactional
-    public Long incrementCommentsId() {
+    public Post incrementCommentsId() {
 
-        Long updatedCommentsId = postRepository.getMaxCommentsId();
+        Post updatedCommentsId = postRepository.getMaxCommentsId();
 
         return updatedCommentsId;
     }
@@ -115,9 +115,7 @@ public class PostService {
 
                 actualPost.setComments(comments);
 
-
-
-        Long updatedCommentsId = incrementCommentsId();
+        Post updatedCommentsId = incrementCommentsId();
 
         Post updatedPost = postRepository.save(actualPost);
 
