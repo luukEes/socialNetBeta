@@ -33,7 +33,7 @@ public class Post {
     private String comments;
 
     @Column(name = "comments_id")
-    private Long commentsId;
+    private Long comments_id;
 
     /*
     added some constructor because of loombook ?

@@ -1,9 +1,6 @@
 package pl.testingJPA.posts;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mysql.cj.protocol.a.NativeUtils;
-import org.hibernate.annotations.Comments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -99,11 +96,17 @@ public class PostService {
     method for increment field comments_id in MySql
     */
     @Transactional
-    public Post incrementCommentsId() {
+    public Long incrementCommentsId() {
 
-        Post updatedCommentsId = postRepository.getMaxCommentsId();
+        return postRepository.actualCommentID();
+    }
 
-        return updatedCommentsId;
+    @Transactional
+    public Long actualCommentID() {
+
+        postRepository.incrementCommentsId();
+
+        return postRepository.actualCommentID();
     }
 
     @PutMapping("/addComment")
@@ -115,17 +118,19 @@ public class PostService {
 
                 actualPost.setComments(comments);
 
-        Post updatedCommentsId = incrementCommentsId();
-
         Post updatedPost = postRepository.save(actualPost);
+
+       // Post updatedCommentsId = incrementCommentsId();
+        Long updateID = actualCommentID();
+
 
         return updatedPost ;
     }
 
     /*
     method add comment correctly
+    added incrementation for comments_id
      */
-
 
 }
 
