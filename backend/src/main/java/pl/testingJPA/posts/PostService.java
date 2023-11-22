@@ -128,8 +128,6 @@ public class PostService {
     }
 
     /*
-    method add comment correctly
-    added incrementation for comments_id
      */
 
 }
