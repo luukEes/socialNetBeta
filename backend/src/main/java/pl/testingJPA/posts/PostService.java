@@ -114,7 +114,7 @@ public class PostService {
     public Post newComments (@RequestHeader("id") int id, @RequestBody String comments) {
 
         Post actualPost = postRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Post not found with ID: " + id ));
+                .orElseThrow(() -> new ResourceNotFoundException( "Post does not exist " + id ));
 
                 actualPost.setComments(comments);
 
