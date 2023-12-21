@@ -153,6 +153,8 @@ j
     working properly. Data saved in DB
     Method creates all new data in db, by user id- Admin tools
     OK
+
+    Users method working properly
      */
     
 
