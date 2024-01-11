@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Register from './Register';
+import Register  from './Register';
 
 class App extends Component {
   render () {
@@ -8,4 +8,3 @@ class App extends Component {
   }
 }
 export default App;
-/* now app working properly*/

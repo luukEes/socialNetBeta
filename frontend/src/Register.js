@@ -17,7 +17,7 @@ class Register extends Component {
     }
 
     registerUser(username, password) {
-        fetch('http://localhost:8080/users', {
+        fetch('http://localhost:8080/addusers', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
