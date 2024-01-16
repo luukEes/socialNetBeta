@@ -30,6 +30,7 @@ class Login extends Component {
         }).then(function (response) {
             if (response.status === 200) {
                 this.showRegistrationAlert("success", "Login successful!", "You are now logged in.");
+                this.props.onLoginSuccess();
             } else if (response.status === 401) {
                 this.showRegistrationAlert("danger", "Wrong credentials", "Username and/or password is wrong.");
             }
