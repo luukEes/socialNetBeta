@@ -1,0 +1,33 @@
+/* dashboard.css */
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #020202;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Hide overflow to prevent horizontal scrollbar */
+  background: url('background.JPG') no-repeat;
+  background-size: cover;
+  position: relative; /* Set position to relative */
+  height: 100vh; /* Ensure the body takes up the full viewport height */
+}
+
+.square-frame {
+  border: 2px solid rgba(236, 240, 241, 0.4); /* Slightly darker and more transparent border color */
+  border-radius: 10px; /* Add border-radius for rounded corners */
+  padding: 20px; /* Add padding inside the frame */
+  max-width: 400px; /* Set a smaller maximum width for the frame */
+  margin: auto; /* Center the frame horizontally */
+  text-align: center; /* Center text inside the frame */
+  box-shadow: 0 0 20px rgba(300, 18, 18, 5); /* Add box-shadow for a subtle shadow effect */
+}
+
+.square-frame h1 {
+  font-size: 2.5em; /* Increase font size for the h1 element */
+}
+
+.square-frame p {
+  font-size: 1.5em; /* Increase font size for the p element */
+}
+
+/* Other styles remain the same */
