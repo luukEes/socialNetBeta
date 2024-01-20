@@ -2,6 +2,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  font-size: medium;
   color: #020202;
   margin: 0;
   padding: 0;
@@ -21,13 +22,15 @@ body {
   text-align: center; /* Center text inside the frame */
   box-shadow: 0 0 20px rgba(300, 18, 18, 5); /* Add box-shadow for a subtle shadow effect */
 }
-
-.square-frame h1 {
-  font-size: 2.5em; /* Increase font size for the h1 element */
-}
-
-.square-frame p {
-  font-size: 1.5em; /* Increase font size for the p element */
+.square-frame button {
+  font-size: 1.5em; /* Set font size for the button */
+  margin-top: 20px; /* Add margin at the top of the button for spacing */
+  background-color: #3208ca; /* Set button background color */
+  color: #080808; /* Set button text color */
+  padding: 10px 20px; /* Add padding for the button */
+  border: none; /* Remove button border */
+  border-radius: 5px; /* Add border-radius for rounded corners */
+  cursor: pointer; /* Add pointer cursor on hover */
 }
 
 /* Other styles remain the same */

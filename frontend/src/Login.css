@@ -12,7 +12,7 @@ body {
     display: flex;
     justify-content: center;
     min-height: 100vh;
-    background: url(space2.jpg) no-repeat;
+    background: url(space2.JPG) no-repeat;
     background-size: cover;
     background-position: center;
 } 
@@ -38,7 +38,7 @@ body {
     font-size: 50px;
     margin:  auto;
     max-width: fit-content;
-    color: white;
+    color: rgb(8, 8, 8);
     font-family: 'Brush Script MT', cursive;
 }
 .Login form{
@@ -75,3 +75,7 @@ body {
     color: white;
     font-family: 'Brush Script MT', cursive;
 }
+.alert-success {
+    font-size: 12px; /* Adjust the font size as needed */
+    /* Add any additional styles you want */
+  }

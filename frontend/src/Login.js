@@ -31,7 +31,7 @@ class Login extends Component {
             this.showRegistrationAlert("success", "Login successful!", "You are now logged in.");
             this.props.onLoginSuccess();
         } else if (response.status === 401) {
-            this.showRegistrationAlert("danger", "Wrong credentials", "Username and/or password is wrong.");
+            this.showRegistrationAlert("danger", "Wrong!", "Username and/or password is wrong.");
         }
         else {
             this.showRegistrationAlert("danger", "Error", "Something went wrong.");

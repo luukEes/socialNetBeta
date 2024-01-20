@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Login from './Login';
 import Register from './Register'; // Import the Register component
+import './RegisterButtonStyles.css'; // Import the new styles
 
 class App extends Component {
   constructor() {

@@ -28,7 +28,7 @@ class Register extends Component {
       })
   }).then(function(response) {
     if (response.status === 200) {
-      this.showRegistrationAlert("success", "User registered!", "You can now log in using your credentials.");
+      this.showRegistrationAlert("success", "User registered!", "You can now log in .");
     } 
     else if (response.status === 422) {
       this.showRegistrationAlert("danger", "User already exists", "Please choose a different name.");
@@ -41,7 +41,7 @@ class Register extends Component {
   }.bind(this));
 
     // For demonstration purposes, assuming successful registration
-    this.showRegistrationAlert('success', 'User registered!', 'You can now log in using your credentials.');
+    this.showRegistrationAlert('success', 'User registered!', 'You can now log in .');
   }
 
   showRegistrationAlert(variant, heading, message) {
