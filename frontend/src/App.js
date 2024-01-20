@@ -1,26 +1,36 @@
 import React, { Component } from 'react';
 import './App.css';
 import Login from './Login';
+import Register from './Register'; // Import the Register component
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLoggedIn: false,
+      isRegistering: false, // New state to track whether to render Login or Register
     };
   }
 
   handleLoginSuccess = () => {
-    // Assuming you have some logic to determine successful login
-    // For demonstration purposes, I'm just setting the state to true
     this.setState({ isLoggedIn: true });
     window.location.href = './dashboard.html';
+  };
+
+  // Callback to switch to the Register component
+  handleSwitchToRegister = () => {
+    this.setState({ isRegistering: true });
   };
 
   render() {
     return (
       <div>
-        <Login onLoginSuccess={this.handleLoginSuccess} />
+        {this.state.isRegistering ? (
+          // If isRegistering is true, render the Register component
+          <Register onSwitchToLogin={() => this.setState({ isRegistering: false })} />
+        ) : (
+          // If isRegistering is false, render the Login component
+          <Login onLoginSuccess={this.handleLoginSuccess} onSwitchToRegister={this.handleSwitchToRegister} />
+        )}
       </div>
     );
   }
