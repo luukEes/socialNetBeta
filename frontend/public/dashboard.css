@@ -2,7 +2,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  font-size: medium;
+  font-size:medium;
   color: #020202;
   margin: 0;
   padding: 0;
@@ -14,23 +14,32 @@ body {
 }
 
 .square-frame {
-  border: 2px solid rgba(236, 240, 241, 0.4); /* Slightly darker and more transparent border color */
+  border: 3px solid rgba(5, 5, 5, 0.555);
   border-radius: 10px; /* Add border-radius for rounded corners */
   padding: 20px; /* Add padding inside the frame */
   max-width: 400px; /* Set a smaller maximum width for the frame */
   margin: auto; /* Center the frame horizontally */
   text-align: center; /* Center text inside the frame */
-  box-shadow: 0 0 20px rgba(300, 18, 18, 5); /* Add box-shadow for a subtle shadow effect */
+  box-shadow: 0 0 20px rgba(300, 18, 18, 0.3); 
+  backdrop-filter: blur(10px);
 }
 .square-frame button {
   font-size: 1.5em; /* Set font size for the button */
   margin-top: 20px; /* Add margin at the top of the button for spacing */
-  background-color: #3208ca; /* Set button background color */
+  background-color: #0d6cc4ab; /* Set button background color */
   color: #080808; /* Set button text color */
   padding: 10px 20px; /* Add padding for the button */
-  border: none; /* Remove button border */
-  border-radius: 5px; /* Add border-radius for rounded corners */
+  border-radius: 10px; /* Add border-radius for rounded corners */
   cursor: pointer; /* Add pointer cursor on hover */
+}
+.square-frame h1 {
+  font-size: 3em; /* Increase font size for the h1 element */
+  font-family: 'Pacifico', cursive; /* Use a more fancy font */
+}
+
+.square-frame p {
+  font-size: 1.5em; /* Increase font size for the p element */
+  font-family: 'Dancing Script', cursive; /* Use a different fancy font */
 }
 
 /* Other styles remain the same */
