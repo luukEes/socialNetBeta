@@ -15,12 +15,18 @@ class Register extends Component {
     const username = event.target.username.value;
     const password = event.target.password.value;
 
-    // Check if username and password are not empty
-    if (!username || !password) {
-      this.showRegistrationAlert("danger", "Fields Empty", "You must fill in all the fields.");
+    // Validate password using regex
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{10,})/;
+    if (!passwordRegex.test(password)) {
+      this.showRegistrationAlert(
+        "danger",
+        "Invalid Password",
+        "Password must contain at least one capital letter, one special character, and be at least 10 characters long."
+      );
       return;
     }
 
+    // Continue with the registration logic
     this.registerUser(username, password);
   };
 
@@ -35,17 +41,17 @@ class Register extends Component {
         username: username,
         password: password,
       })
-    }).then((response) => {
+    }).then(function(response) {
       if (response.status === 200) {
         this.showRegistrationAlert("success", "User registered!", "You can now log in.");
       } else if (response.status === 422) {
         this.showRegistrationAlert("danger", "User already exists", "Please choose a different name.");
       } else {
-        this.showRegistrationAlert("danger", "Error", "Something went wrong.");
+        this.showRegistrationAlert("danger", "User not registered!", "Something went wrong.");
       }
-    }).catch((error) => {
+    }.bind(this)).catch(function(error) {
       this.showRegistrationAlert("danger", "Error", "Something went wrong.");
-    });
+    }.bind(this));
 
     // For demonstration purposes, assuming successful registration
     this.showRegistrationAlert('success', 'User registered!', 'You can now log in.');
