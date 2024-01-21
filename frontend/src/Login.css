@@ -99,3 +99,10 @@ body {
     border-radius: 5px;
     cursor: pointer;
   }
+  .already-have-account {
+    color: #fcfcfc; /* Change to your desired font color */
+    font-size: 28px; /* Change to your desired font size */
+    margin-top: 30px; /* Adjust the top margin for spacing */
+  }
+
+  

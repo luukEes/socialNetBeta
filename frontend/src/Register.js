@@ -12,36 +12,43 @@ class Register extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.registerUser(event.target.username.value, event.target.password.value);
+    const username = event.target.username.value;
+    const password = event.target.password.value;
+
+    // Check if username and password are not empty
+    if (!username || !password) {
+      this.showRegistrationAlert("danger", "Fields Empty", "You must fill in all the fields.");
+      return;
+    }
+
+    this.registerUser(username, password);
   };
 
   registerUser(username, password) {
     fetch('http://localhost:8080/addusers', {
       method: 'POST',
       headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-          username: username,
-          password: password,
+        username: username,
+        password: password,
       })
-  }).then(function(response) {
-    if (response.status === 200) {
-      this.showRegistrationAlert("success", "User registered!", "You can now log in .");
-    } 
-    else if (response.status === 422) {
-      this.showRegistrationAlert("danger", "User already exists", "Please choose a different name.");
-    } 
-    else  {
-      this.showRegistrationAlert("danger", "User not registered!", "Something went wrong.");
-    }
-  }.bind(this)).catch(function(error) {
-    this.showRegistrationAlert("danger", "Error", "Something went wrong.");
-  }.bind(this));
+    }).then((response) => {
+      if (response.status === 200) {
+        this.showRegistrationAlert("success", "User registered!", "You can now log in.");
+      } else if (response.status === 422) {
+        this.showRegistrationAlert("danger", "User already exists", "Please choose a different name.");
+      } else {
+        this.showRegistrationAlert("danger", "Error", "Something went wrong.");
+      }
+    }).catch((error) => {
+      this.showRegistrationAlert("danger", "Error", "Something went wrong.");
+    });
 
     // For demonstration purposes, assuming successful registration
-    this.showRegistrationAlert('success', 'User registered!', 'You can now log in .');
+    this.showRegistrationAlert('success', 'User registered!', 'You can now log in.');
   }
 
   showRegistrationAlert(variant, heading, message) {
@@ -74,7 +81,7 @@ class Register extends Component {
         </div>
 
         <div className="LoginButtonContainer">
-          <p>Already have an account?</p>
+          <p className="already-have-account">Already have an account?</p>
           <Button block size="lg" onClick={this.props.onSwitchToLogin}>
             Login
           </Button>

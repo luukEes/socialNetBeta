@@ -12,35 +12,41 @@ class Login extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.loginUser(event.target.username.value, event.target.password.value);
+    const username = event.target.username.value;
+    const password = event.target.password.value;
+
+    // Check if username and password are not empty
+    if (!username || !password) {
+      this.showRegistrationAlert("danger", "Fields Empty", "You must fill in all the fields.");
+      return;
+    }
+
+    this.loginUser(username, password);
   };
 
   loginUser(username, password) {
     fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            username: username,
-            password: password,
-        })
-    }).then(function (response) {
-        if (response.status === 200) {
-            this.showRegistrationAlert("success", "Login successful!", "You are now logged in.");
-            this.props.onLoginSuccess();
-        } else if (response.status === 401) {
-            this.showRegistrationAlert("danger", "Wrong!", "Username and/or password is wrong.");
-        }
-        else {
-            this.showRegistrationAlert("danger", "Error", "Something went wrong.");
-        }
-        
-    }.bind(this)).catch(function (error) {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      })
+    }).then((response) => {
+      if (response.status === 200) {
+        this.showRegistrationAlert("success", "Login successful!", "You are now logged in.");
+        this.props.onLoginSuccess();
+      } else if (response.status === 401) {
+        this.showRegistrationAlert("danger", "Wrong!", "Username and/or password is wrong.");
+      } else {
         this.showRegistrationAlert("danger", "Error", "Something went wrong.");
-    }.bind(this));
-
+      }
+    }).catch((error) => {
+      this.showRegistrationAlert("danger", "Error", "Something went wrong.");
+    });
   }
 
   showRegistrationAlert(variant, heading, message) {
