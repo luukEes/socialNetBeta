@@ -37,7 +37,7 @@ public class PostService {
         return ResponseEntity.ok(savedPost);
     }
 
-    //method  search post in db by ID
+    //method posts does not work !!!!
 
     @GetMapping("/findPostById")
     @Transactional
