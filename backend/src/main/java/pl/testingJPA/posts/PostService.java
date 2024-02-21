@@ -21,21 +21,35 @@ public class PostService {
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping("/posts")
-    public ResponseEntity addPost(@RequestHeader("username") String username, @RequestBody String postBody) {
 
-        Optional<User> userFromDb = userRepository.findByUsername(username);
 
-        if (userFromDb.isEmpty()) {
+    @PutMapping("/addcomments")
+    public ResponseEntity newComment(@RequestHeader("id") int userId, @RequestBody String comments, @RequestParam(required = false) Long comments_id) {
+        // Retrieve the user by its ID
+        Optional<User> userById = userRepository.findById(userId);
 
+        // Check if the user exists
+        if (userById.isEmpty()) {
+            // If the user does not exist, return UNAUTHORIZED status
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        Post post = new Post(userFromDb,postBody);
-        Post savedPost = postRepository.save(post);
+        // Create a new Post object with the retrieved user, comments, and comments_id
+        Post post = new Post();
+        post.setUser(userById.get());
+        post.setComments(comments);
+        post.setComments_id(comments_id);
 
-        return ResponseEntity.ok(savedPost);
+        // Save the new post with the added comments
+        try {
+            Post savedPost = postRepository.save(post);
+            return ResponseEntity.ok(savedPost);
+        } catch (Exception e) {
+            // Handle the case where comments_id is null, which violates the constraint
+            return ResponseEntity.badRequest().body("comments_id cannot be null");
+        }
     }
+
 
     //method posts does not work !!!!
 
@@ -73,6 +87,21 @@ public class PostService {
     /*
     create method to edit existing posts
      */
+    @PostMapping("/addPost")
+    public ResponseEntity newPost(@RequestBody Post post) {
+
+        Post updatePost = postRepository.findById(post.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Post does not exist with id: " + post.getId()));
+
+        ResponseEntity results;
+
+        updatePost.setBody(post.getBody());
+
+        Post userNewData = postRepository.save(post);
+        results =  ResponseEntity.ok(userNewData);
+
+        return results;
+    }
     @PutMapping("/editPost")
     public ResponseEntity editPost(@RequestBody Post post) {
 
@@ -88,48 +117,8 @@ public class PostService {
 
         return results;
     }
-    /*
-    body of post added correctly
-     */
-
-    /*
-    method for increment field comments_id in MySql
-    */
-    @Transactional
-    public Long incrementCommentsId() {
-
-        return postRepository.actualCommentID();
-    }
-
-    @Transactional
-    public Long actualCommentID() {
-
-        postRepository.incrementCommentsId();
-
-        return postRepository.actualCommentID();
-    }
-
-    @PutMapping("/addComment")
-
-    public Post newComments (@RequestHeader("id") int id, @RequestBody String comments) {
-
-        Post actualPost = postRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException( "Post does not exist " + id ));
-
-                actualPost.setComments(comments);
-
-        Post updatedPost = postRepository.save(actualPost);
-
-       // Post updatedCommentsId = incrementCommentsId();
-        Long updateID = actualCommentID();
 
 
-        return updatedPost ;
-    }
-
-    /*
-    smth is fucked up
-     */
 
 }
 

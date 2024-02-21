@@ -2,7 +2,6 @@ package pl.testingJPA.posts;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenerationTime;
 import pl.testingJPA.users.User;
 
 import java.util.Optional;
@@ -23,8 +22,10 @@ public class Post {
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id") // Specify the column name for the foreign key
     @NonNull
     private User user;
+
 
     @NonNull
     private String body;
@@ -40,7 +41,4 @@ public class Post {
 
      */
 
-    public Post(Optional<User> userFromDb, String postBody) {
-
-    }
 }
