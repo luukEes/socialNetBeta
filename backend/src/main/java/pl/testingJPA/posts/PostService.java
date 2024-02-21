@@ -24,7 +24,7 @@ public class PostService {
 
 
     @PutMapping("/addcomments")
-    public ResponseEntity newComment(@RequestHeader("id") int userId, @RequestBody String comments, @RequestParam(required = false) Long comments_id) {
+    public ResponseEntity newComment(@RequestHeader("id") int userId, @RequestBody String comments, @RequestHeader(required = false, name = "comments_id") Long comments_id) {
         // Retrieve the user by its ID
         Optional<User> userById = userRepository.findById(userId);
 
