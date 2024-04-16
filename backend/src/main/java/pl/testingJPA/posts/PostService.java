@@ -21,37 +21,27 @@ public class PostService {
     @Autowired
     UserRepository userRepository;
 
-
-
     @PutMapping("/addcomments")
-    public ResponseEntity newComment(@RequestHeader("id") int userId, @RequestBody String comments, @RequestHeader(required = false, name = "comments_id") Long comments_id) {
+    public ResponseEntity newComment(@RequestHeader("id")  int id, @RequestBody String comments)  {
         // Retrieve the user by its ID
-        Optional<User> userById = userRepository.findById(userId);
+        Optional<Post> postbyID = postRepository.findById(id);
 
         // Check if the user exists
-        if (userById.isEmpty()) {
+        if (postbyID.isEmpty()) {
             // If the user does not exist, return UNAUTHORIZED status
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        // Create a new Post object with the retrieved user, comments, and comments_id
-        Post post = new Post();
-        post.setUser(userById.get());
-        post.setComments(comments);
-        post.setComments_id(comments_id);
-
-        // Save the new post with the added comments
-        try {
-            Post savedPost = postRepository.save(post);
-            return ResponseEntity.ok(savedPost);
-        } catch (Exception e) {
-            // Handle the case where comments_id is null, which violates the constraint
-            return ResponseEntity.badRequest().body("comments_id cannot be null");
+        else  {
+            // Create a new Post object with the retrieved user, comments, and comments_id
+                Post post = new Post();
+                post.setComments(comments);
+                return ResponseEntity.ok(post);
         }
     }
-
-
-    //method posts does not work !!!!
+    //so wee need ask kunolysGPT how add comments in existing post
+    // because for now we're creating new POst !!!
+    //  YES, YOU ENDED HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     @GetMapping("/findPostById")
     @Transactional
@@ -69,7 +59,6 @@ public class PostService {
 
             response = ResponseEntity.ok(postFromDb);
         }
-
         return  response;
     }
 
