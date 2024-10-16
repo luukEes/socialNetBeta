@@ -80,7 +80,7 @@ public class PostService {
     public ResponseEntity newPost(@RequestBody Post post) {
 
         Post updatePost = postRepository.findById(post.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Post does not exist with id: " + post.getId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Post with id does not exist : " + post.getId()));
 
         ResponseEntity results;
 

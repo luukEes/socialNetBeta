@@ -150,7 +150,7 @@ j
         return results;
     }
     /*
-    working properly. Data saved in DB
+    working properly. Data saved in DB3
     Method creates all new data in db, by user id- Admin tools
     OK
 
